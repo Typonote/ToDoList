@@ -1,7 +1,13 @@
 import React from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { ToDoInterface, toDoState } from "../atoms";
+import { Categories, ToDoInterface, toDoState } from "../atoms";
+
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+library.add(faTrashAlt);
 
 const ToDoList = styled.li`
   display: flex;
@@ -41,27 +47,41 @@ const ToDo = ({ text, category, id }: ToDoInterface) => {
     });
   };
 
+  const onClickDeleteHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setToDos((oldToDos) => {
+      const targetIndex = oldToDos.findIndex((todo) => todo.id === id);
+      return [
+        ...oldToDos.slice(0, targetIndex),
+        ...oldToDos.slice(targetIndex + 1),
+      ];
+    });
+  };
+
   return (
     <ToDoList>
       <div style={{ width: "60%" }}>
         <span>{text}</span>
       </div>
       <div>
-        {category !== "DOING" && (
-          <button name="DOING" onClick={onClickHandler}>
+        {category !== Categories.DOING && (
+          <button name={Categories.DOING} onClick={onClickHandler}>
             Doing
           </button>
         )}
-        {category !== "TO_DO" && (
-          <button name="TO_DO" onClick={onClickHandler}>
+        {category !== Categories.TO_DO && (
+          <button name={Categories.TO_DO} onClick={onClickHandler}>
             To Do
           </button>
         )}
-        {category !== "DONE" && (
-          <button name="DONE" onClick={onClickHandler}>
+        {category !== Categories.DONE && (
+          <button name={Categories.DONE} onClick={onClickHandler}>
             Done
           </button>
         )}
+
+        <button name={Categories.DELETE} onClick={onClickDeleteHandler}>
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </button>
       </div>
     </ToDoList>
   );
