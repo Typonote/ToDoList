@@ -18,7 +18,7 @@ export const darkTheme: DefaultTheme = {
 
 export const lightTheme: DefaultTheme = {
   // 전체 배경: 옅은 회색
-  bgColor: "#efeff4",
+  bgColor: "#edf2f7",
   // 글씨: 검은색
   textColor: "black",
   // 카드: 흰색

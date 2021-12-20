@@ -5,28 +5,41 @@ import styled from "styled-components";
 import { categoryState, toDoState } from "../atoms";
 
 const ToDoForm = styled.form`
-  color: white;
+  display: flex;
+  flex-direction: row;
+  color: #5d5d5d;
+  margin: 1rem;
   background-color: transparent;
 
   input {
-    width: 70%;
-    color: white;
+    color: #5d5d5d;
     font-size: 1rem;
     background-color: transparent;
+    padding: 0.5rem;
     border: none;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #bdbdbd;
     margin-right: 1rem;
-  }
 
-  button {
-    background-color: #ececec;
-    border: none;
-    color: black;
-    padding: 0.3rem;
-    font-size: 1rem;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+  }
+`;
+
+const Btn = styled.button`
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: transparent;
+  border: 3px solid #487eb0;
+  color: #487eb0;
+
+  &:hover {
+    color: white;
+    background-color: #487eb0;
   }
 `;
 
@@ -52,9 +65,9 @@ const CreateToDo = () => {
         {...register("toDo", {
           required: "Please write a To Do",
         })}
-        placeholder="Write a to do"
+        placeholder="오늘 할 일"
       />
-      <button>Add</button>
+      <Btn>Add</Btn>
     </ToDoForm>
   );
 };

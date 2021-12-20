@@ -7,13 +7,23 @@ import ToDo from "./ToDo";
 import ToDoOptions from "./ToDoOptions";
 
 const Container = styled.div`
-  height: 100vh;
+  height: 90vh;
   width: 80%;
-  margin: 0 auto;
+  background-color: white;
+  border-radius: 1rem;
+  margin: 5vh auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 1rem;
+  color: ${(props) => props.theme.accentColor};
 `;
 
 const ToDoList = () => {
@@ -26,8 +36,8 @@ const ToDoList = () => {
 
   return (
     <Container>
-      <h1>To Dos</h1>
-      <hr />
+      <Title>오늘 할 일</Title>
+
       <ToDoOptions />
       <CreateToDo />
 

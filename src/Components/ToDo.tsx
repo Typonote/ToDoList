@@ -19,10 +19,56 @@ const ToDoList = styled.li`
   color: black;
   background-color: white;
   padding: 1rem;
-  margin: 1rem 0;
+  margin: 00;
+`;
 
-  button {
-    margin-right: 0.5rem;
+const Btn = styled.button`
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  background-color: transparent;
+
+  &:hover {
+    color: white;
+  }
+`;
+
+const DoingBtn = styled(Btn)`
+  border: 3px solid #4cd137;
+  color: #4cd137;
+
+  &:hover {
+    background-color: #4cd137;
+  }
+`;
+
+const ToDoBtn = styled(Btn)`
+  border: 3px solid #0097e6;
+  color: #0097e6;
+
+  &:hover {
+    background-color: #0097e6;
+  }
+`;
+
+const DoneBtn = styled(Btn)`
+  border: 3px solid #e84118;
+  color: #e84118;
+
+  &:hover {
+    background-color: #e84118;
+  }
+`;
+
+const TrashBtn = styled(Btn)`
+  border: 3px solid #718093;
+  color: #718093;
+
+  &:hover {
+    background-color: #718093;
   }
 `;
 
@@ -59,29 +105,40 @@ const ToDo = ({ text, category, id }: ToDoInterface) => {
 
   return (
     <ToDoList>
-      <div style={{ width: "60%" }}>
-        <span>{text}</span>
+      <div style={{ width: "60%", display: "flex", alignItems: "center" }}>
+        {category === Categories.DONE && (
+          <h2
+            style={{
+              textDecoration: "line-through",
+              textDecorationThickness: "3px",
+              textDecorationColor: "#e84118",
+            }}
+          >
+            {text}
+          </h2>
+        )}
+        {category !== Categories.DONE && <h2>{text}</h2>}
       </div>
       <div>
         {category !== Categories.DOING && (
-          <button name={Categories.DOING} onClick={onClickHandler}>
+          <DoingBtn name={Categories.DOING} onClick={onClickHandler}>
             Doing
-          </button>
+          </DoingBtn>
         )}
         {category !== Categories.TO_DO && (
-          <button name={Categories.TO_DO} onClick={onClickHandler}>
+          <ToDoBtn name={Categories.TO_DO} onClick={onClickHandler}>
             To Do
-          </button>
+          </ToDoBtn>
         )}
         {category !== Categories.DONE && (
-          <button name={Categories.DONE} onClick={onClickHandler}>
+          <DoneBtn name={Categories.DONE} onClick={onClickHandler}>
             Done
-          </button>
+          </DoneBtn>
         )}
 
-        <button name={Categories.DELETE} onClick={onClickDeleteHandler}>
+        <TrashBtn name={Categories.DELETE} onClick={onClickDeleteHandler}>
           <FontAwesomeIcon icon={faTrashAlt} />
-        </button>
+        </TrashBtn>
       </div>
     </ToDoList>
   );
