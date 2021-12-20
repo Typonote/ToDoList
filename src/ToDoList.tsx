@@ -7,6 +7,7 @@ interface FormInterface {
   username: string;
   password: string;
   password1: string;
+  extraError?: string;
 }
 
 const ToDoList = () => {
@@ -14,15 +15,23 @@ const ToDoList = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<FormInterface>({
     defaultValues: {
       email: "@naver.com",
     },
   });
-  const onValid = (data: any) => {
-    console.log(data);
+  const onValid = (data: FormInterface) => {
+    if (data.password !== data.password1) {
+      setError(
+        "password1",
+        { message: "Password are not the same" },
+        { shouldFocus: true }
+      );
+    }
+    // setError("extraError", { message: "Server offline" });
   };
-
+  console.log(errors);
   return (
     <div>
       <form
@@ -41,12 +50,24 @@ const ToDoList = () => {
         />
         <span>{errors?.email?.message}</span>
         <input
-          {...register("firstName", { required: true })}
+          {...register("firstName", {
+            required: "write here",
+            validate: {
+              noNick: (value) =>
+                value.includes("nick") ? "no nick allowed" : true,
+            },
+          })}
           placeholder="First Name"
         />
         <span>{errors?.firstName?.message}</span>
         <input
-          {...register("lastName", { required: true })}
+          {...register("lastName", {
+            required: "write here",
+            validate: {
+              noNick: (value) =>
+                value.includes("nick") ? "no nick allowed" : true,
+            },
+          })}
           placeholder="Last Name"
         />
         <span>{errors?.lastName?.message}</span>
@@ -72,6 +93,7 @@ const ToDoList = () => {
         />
         <span>{errors?.password1?.message}</span>
         <button>Add</button>
+        <span>{errors?.extraError?.message}</span>
       </form>
     </div>
   );
